@@ -16,3 +16,6 @@ class SearchResultsView(ListView):
             Q(name__icontains=query)
         )
         return object_list
+    
+class FavoritesView(TemplateView):
+    template_name = 'favorites.html'

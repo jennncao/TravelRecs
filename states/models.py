@@ -9,3 +9,7 @@ class State(models.Model):
 
     def __str__(self):
         return self.name
+
+#need to add class for activities
+'''class Activity(models.Model):
+    name = '''
