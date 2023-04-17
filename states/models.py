@@ -11,5 +11,14 @@ class State(models.Model):
         return self.name
 
 #need to add class for activities
-'''class Activity(models.Model):
-    name = '''
+class Activity(models.Model):
+    state = models.CharField(max_length = 20, null = True)
+    abv = models.CharField(max_length = 3, null = True)
+    name = models.CharField(max_length = 100, null = True)
+    category = models.CharField(max_length = 100, null = True)
+    image = models.CharField(max_length = 300, null = True)
+
+    def __str__(self):
+        return self.name
+    
+    objects = models.Manager()
