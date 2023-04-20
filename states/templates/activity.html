@@ -10,6 +10,7 @@
 </head>
 {% block content %}
     <body>
+        <div class = "content">
         <br/>
         <h1>{{ activity }}</h1>
         <img src = "{{ activity.image }}" alt = "alt" width = 500px> <br/>
@@ -19,6 +20,7 @@
         <a href = "{{ activity.link }}">Learn more</a> <br/>
         {{ activity.description }}
         <br/>
+        {% if user.is_authenticated %}
         <form action = "{% url 'favorite' activity.pk %}"
         method = "POST">
         {% csrf_token %}
@@ -27,7 +29,9 @@
         {% else %}
         <div class = "button"><button type = "submit", name = "activity_id", value = "{{ activity.id }}">Add to Favorites</button></div>
         {% endif %}
+        {% endif %}
         </form>
+        </div>
     </body>
 {% endblock %}
 </html>
