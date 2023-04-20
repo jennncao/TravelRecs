@@ -34,7 +34,7 @@ def Import_Excel_pandas(request):
         activityExcelData = pd.read_excel(filename)
         dbframe = activityExcelData
         for dbframe in dbframe.itertuples():
-            obj = Activity.objects.create(state = dbframe.state, abv = dbframe.abv, name = dbframe.name, category = dbframe.category, image = dbframe.image, link = dbframe.link, description = dbframe.description, address = dbframe.address)
+            obj = Activity.objects.create(state = dbframe.state, name = dbframe.name, category = dbframe.category, image = dbframe.image, link = dbframe.link, description = dbframe.description, address = dbframe.address)
             obj.save()
         return render(request, 'Import_excel_db.html', {'uploaded_file_url': uploaded_file_url})
     return render(request, 'Import_excel_db.html', {})
