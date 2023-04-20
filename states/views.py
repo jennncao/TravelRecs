@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from http.client import HTTPResponse
 from django.views.generic import TemplateView, ListView
 from .models import State, Activity
@@ -8,6 +8,8 @@ import os
 from django.core.files.storage import FileSystemStorage
 from tablib import Dataset
 from .resources import ActivityResource
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -32,7 +34,7 @@ def Import_Excel_pandas(request):
         activityExcelData = pd.read_excel(filename)
         dbframe = activityExcelData
         for dbframe in dbframe.itertuples():
-            obj = Activity.objects.create(state = dbframe.state, abv = dbframe.abv, name = dbframe.name, category = dbframe.category, image = dbframe.image)
+            obj = Activity.objects.create(state = dbframe.state, abv = dbframe.abv, name = dbframe.name, category = dbframe.category, image = dbframe.image, link = dbframe.link, description = dbframe.description, address = dbframe.address)
             obj.save()
         return render(request, 'Import_excel_db.html', {'uploaded_file_url': uploaded_file_url})
     return render(request, 'Import_excel_db.html', {})
@@ -50,7 +52,21 @@ def Import_excel(request):
 
 def activity_listing(request, activity_id):
     activity = Activity.objects.get(pk = activity_id)
-    return render(request, 'activity.html', {'activity' : activity})
+    favorited = bool
+    if activity.favorite.filter(id = request.user.id).exists():
+        favorited = True
+    else:
+        favorited = False
+    return render(request, 'activity.html', {'activity' : activity, 'favorited' : favorited})
     
-class FavoritesView(TemplateView):
-    template_name = 'favorites.html'
+def FavoriteView(request, pk):
+    activity = get_object_or_404(Activity, id = request.POST.get('activity_id'))
+    if activity.favorite.filter(id = request.user.id).exists():
+        activity.favorite.remove(request.user)
+    else:
+        activity.favorite.add(request.user)
+    return HttpResponseRedirect(reverse('activity', args = [str(pk)]))
+
+def FavoritesListView(request):
+    new = Activity.objects.filter(favorite = request.user)
+    return render(request, 'favorites.html', {'new' : new})

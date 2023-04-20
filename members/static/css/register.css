@@ -1,0 +1,16 @@
+.content {
+    margin-left: 30px;
+    padding-left: 30px;
+}
+
+button {
+    border: gray;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+}

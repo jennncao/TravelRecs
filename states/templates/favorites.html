@@ -15,8 +15,18 @@
     <title>Document</title>
 </head>
 {% block content %}
+    <div class = "content">
     <body>
         <div class = "header"><h1>Favorite Activities:</h1></div>
+        {% for activity in new %}
+        <div class = "parent">
+            <div class = "child">
+                <div class = "activity"><a href = "{% url 'activity' activity.id %}">{{ activity.name }}</a></div>
+            </div>
+        </div>
+        <br/>
+        {% endfor %}
     </body>
+    </div>  
 {% endblock %}
 </html>

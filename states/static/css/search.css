@@ -1,6 +1,50 @@
-* {
-    text-align: center;
-    font-family: "Monaco", monospace;
+body {
+    text-align: left;
     background-color: #1c3e5e;
-    color: white;
+    color: #333;
+    background-color: white;
+    margin-right: 10px;
 }
+
+body a {
+    text-decoration: none!important;
+    color: #333;
+    font-size: 20px;
+}
+
+.activity :hover{
+    color: rgb(115, 159, 249);
+}
+
+h1 {
+    margin-left: 60px;
+}
+
+body a {
+    color: rgb(65, 115, 214);
+}
+
+.activity {
+    font-weight: bold;
+    color: blue;
+    margin-right: auto;
+}
+
+.parent {
+    border: 1px solid gray;
+    margin: 1rem;
+    margin-right: 40px;
+    padding-bottom: 25px;
+    padding-left: 10px;
+  }
+
+.child {
+display: inline-block;
+gap: 100px;
+padding: 1rem 1rem;
+margin-right: 200px
+}
+
+  .image {
+    margin-left: auto;
+  }

@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class State(models.Model):
@@ -17,6 +19,11 @@ class Activity(models.Model):
     name = models.CharField(max_length = 100, null = True)
     category = models.CharField(max_length = 100, null = True)
     image = models.CharField(max_length = 300, null = True)
+    link = models.CharField(max_length = 200, null = True)
+    description = models.CharField(max_length = 400, null = True)
+    address = models.CharField(max_length = 100, null = True)
+    favorite = models.ManyToManyField(User, related_name = 'activities')
+    objects = models.Manager() #default 
 
     def __str__(self):
         return self.name

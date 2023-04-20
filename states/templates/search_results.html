@@ -10,19 +10,41 @@
         margin-top: 50px;
     }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap" rel="stylesheet">
     <link rel = "stylesheet" href = "/static/css/search.css">
     {% extends 'base.html' %}
     <title>Document</title>
 </head>
 {% block content %}
     <body>
-        <h1>
+        <h1>Results for {{request.GET.q}}:</h1>
             <ul>
-                {% for state in object_list %}
-                    Activities in {{ state.name }}:
+            {% if request.GET.q != '' %}
+            {% if object_list %}
+                <br/>
+                {% for activity in object_list %}
+                <div class = "parent">
+                    <div class = "child">
+                    <div class = "activity" style = "text-decoration: none;">
+                        <h2><a href = "{% url 'activity' activity.id %}">{{ activity.name }}</a></h2>
+                    </div>
+                    <br/>
+                    <div class = "description"><b>Type of Activity: </b>{{ activity.category }}</div>
+                    </div>
+                    
+                    <br/>
+                </div>
                 {% endfor %}
             </ul>
-        </h1>
+            {% else %}
+                No search results for this query
+                <br/>
+                <br/>
+
+            {% endif %}
+            {% endif %}
     </body>
 {% endblock %}
 </html>

@@ -13,7 +13,8 @@
         <div class = "header"><h1>TravelRecs</h1></div>
         <p>Enter a state name below to search for activities!</p>
         <div class = "search"><form action = "{% url 'search_results' %}" method = "get">
-            <input name = "q" style = "height: 30px;width: 450px;text-align: left;padding-left: 10px;background-color: #e7e7e7;color: rgb(66, 66, 66);" type = "text" placeholder = "Search..."> <a href = "{% url 'search_results' %}"> <input type = "submit" style = "height: 30px; width: 70px"> </a>
+            <input name = "q" style = "height: 30px;width: 450px;text-align: left;padding-left: 10px;background-color: #e7e7e7;color: rgb(66, 66, 66);" type = "text" placeholder = "Search..."> 
+            <div class = "button"><a href = "{% url 'search_results' %}"> <input type = "submit" style = "height: 30px; width: 70px"></a></div>
         </form></div>
     </body>
 {% endblock %}
