@@ -4,12 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "/static/css/activity.css">
     {% extends 'base.html' %}
     <title>Document</title>
 </head>
 {% block content %}
     <body>
-        
+        <div class = "content">
+        <br/>
+        <h1>{{ activity }}</h1>
+        <img src = "{{ activity.image }}" alt = "alt" width = 500px> <br/>
+        <b>State:</b> {{ activity.state }} <br/>
+        <b>Address: </b>{{ activity.address }} <br/>
+        <b>Category: </b>{{ activity.category }} <br/>
+        <a href = "{{ activity.link }}">Learn more</a> <br/>
+        {{ activity.description }}
+        <br/>
+        {% if user.is_authenticated %}
+        <form action = "{% url 'favorite' activity.pk %}"
+        method = "POST">
+        {% csrf_token %}
+        {% if favorited %}
+        <div class = "button"><button type = "submit", name = "activity_id", value = "{{ activity.id }}">Remove from Favorites</button></div>
+        {% else %}
+        <div class = "button"><button type = "submit", name = "activity_id", value = "{{ activity.id }}">Add to Favorites</button></div>
+        {% endif %}
+        {% endif %}
+        </form>
+        </div>
     </body>
 {% endblock %}
 </html>

@@ -20,4 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("states.urls")),
+    #path('import/', include('states.urls')), #remove after importing data
+    path('members/', include('django.contrib.auth.urls')), #new
+    path('members/', include("members.urls")), #new
 ]
