@@ -16,7 +16,7 @@ class HomePageView(TemplateView):
     template_name = 'home.html'
 
 class SearchResultsView(ListView):
-    model = State
+    model = Activity
     template_name = 'search_results.html'
 
     def get_queryset(self):
@@ -25,7 +25,7 @@ class SearchResultsView(ListView):
         #state_name = Activity.objects.get(state_name='state')
         return object_list
     
-def Import_Excel_pandas(request):
+def Import_Excel_pandas(request): #facade method using activity class from models.py
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
@@ -33,7 +33,9 @@ def Import_Excel_pandas(request):
         uploaded_file_url = fs.url(filename)
         activityExcelData = pd.read_excel(filename)
         dbframe = activityExcelData
-        for dbframe in dbframe.itertuples():
+        for dbframe in dbframe.itertuples(): #creating the object 
+            #originally had attempt at using Category class to create activity facade
+            #instead of category = cateogry.dbframe
             obj = Activity.objects.create(state = dbframe.state, name = dbframe.name, category = dbframe.category, image = dbframe.image, link = dbframe.link, description = dbframe.description, address = dbframe.address)
             obj.save()
         return render(request, 'Import_excel_db.html', {'uploaded_file_url': uploaded_file_url})
@@ -70,3 +72,26 @@ def FavoriteView(request, pk):
 def FavoritesListView(request):
     new = Activity.objects.filter(favorite = request.user)
     return render(request, 'favorites.html', {'new' : new})
+
+ #attempts at filter functionality
+ #get previous query results
+'''class FilterView(ListView):
+    model = Activity
+    template_name = 'searchFiltered.html' #removed searchFiltered html file artifact
+
+    def filterView(self):
+        query = self.request.GET.get('q')
+        object_list = Activity.objects.filter(Q(state__icontains=query) & Q(category__icontains=query))
+        
+        return object_list
+        
+def FilterView(request):
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        object_list = Activity.objects.filter(Q(state__iexact=q) & Q(category__iexact=q))
+    
+        return render(request, 'searchFiltered.html', {'object_list': object_list})
+    else:
+        return render(request, 'searchFiltered.html')
+
+    '''
