@@ -18,6 +18,7 @@
     <div class = "content">
     <body>
         <div class = "header"><h1>Favorite Activities:</h1></div>
+        {% if new %}
         {% for activity in new %}
         <div class = "parent">
             <div class = "child">
@@ -26,6 +27,11 @@
         </div>
         <br/>
         {% endfor %}
+        {% else %}
+        <div style = "margin-left: 20px;">
+            No favorites. Begin searching for states to add some!
+        </div>
+        {% endif %}
     </body>
     </div>  
 {% endblock %}
