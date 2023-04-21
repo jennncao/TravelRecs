@@ -12,12 +12,21 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
-#need to add class for activities
+#attempt at category subclass to use with activity class for filtering reasons 
+'''class Category(models.Model):
+    name = models.CharField(max_length = 100, null = True)
+
+    def __str__(self):
+        return self.name'''
+
 class Activity(models.Model):
+    '''def __init__(self):
+            self.category = Category()'''
+
     state = models.CharField(max_length = 20, null = True)
     abv = models.CharField(max_length = 3, null = True)
     name = models.CharField(max_length = 100, null = True)
-    category = models.CharField(max_length = 100, null = True)
+    category = models.CharField(max_length = 100, null = True) 
     image = models.CharField(max_length = 300, null = True)
     link = models.CharField(max_length = 200, null = True)
     description = models.CharField(max_length = 400, null = True)
